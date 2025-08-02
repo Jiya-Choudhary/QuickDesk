@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h2>Dashboard</h2>
+
+    <h3>My Tickets</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Subject</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Votes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in my_tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.subject }}</td>
+                    <td>{{ ticket.category }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td>
+                        {{
+                            ticket.votes|selectattr('vote_type', 'equalto', 'upvote')|list|length
+                            -
+                            ticket.votes|selectattr('vote_type', 'equalto', 'downvote')|list|length
+                        }}
+                    </td>
+                    <td><a href="{{ url_for('main.ticket_details', ticket_id=ticket.id) }}">View</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if current_user.role in ['admin', 'support'] %}
+        <h3>All Tickets</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Subject</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Votes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in all_tickets %}
+                    <tr>
+                        <td>{{ ticket.id }}</td>
+                        <td>{{ ticket.subject }}</td>
+                        <td>{{ ticket.category }}</td>
+                        <td>{{ ticket.status }}</td>
+                        <td>
+                            {{
+                                ticket.votes|selectattr('vote_type', 'equalto', 'upvote')|list|length
+                                -
+                                ticket.votes|selectattr('vote_type', 'equalto', 'downvote')|list|length
+                            }}
+                        </td>
+                        <td><a href="{{ url_for('main.ticket_details', ticket_id=ticket.id) }}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</section>
+<footer>
+    <p>&copy; 2025 Quick Help Desk</p>
+</footer>
+{% endblock %}

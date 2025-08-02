@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h2>Login</h2>
+    <form method="POST" id="login-form">
+        {{ form.hidden_tag() }}
+        
+        <label for="login-username">{{ form.username.label }}</label>
+        {{ form.username(id="login-username") }}
+        
+        <label for="login-password">{{ form.password.label }}</label>
+        {{ form.password(id="login-password") }}
+        
+        {{ form.submit(value="Login") }}
+    </form>
+</section>
+<footer>
+    <p>&copy; 2025 Quick Help Desk</p>
+</footer>
+{% endblock %}

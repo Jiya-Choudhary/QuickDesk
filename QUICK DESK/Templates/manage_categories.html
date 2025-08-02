@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h2>Manage Categories</h2>
+
+    <!-- Category Form -->
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+        {{ form.submit(class="btn") }}
+    </form>
+
+    <!-- Existing Categories Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Category Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<footer>
+    <p>&copy; 2025 Quick Help Desk</p>
+</footer>
+{% endblock %}

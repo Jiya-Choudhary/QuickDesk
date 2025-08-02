@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h2>Manage Users</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <form method="POST" class="role-form">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <select name="role">
+                                <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+                                <option value="support" {% if user.role == 'support' %}selected{% endif %}>Support</option>
+                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                            </select>
+                            <input type="submit" value="Update" class="btn">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<footer>
+    <p>&copy; 2025 Quick Help Desk</p>
+</footer>
+{% endblock %}

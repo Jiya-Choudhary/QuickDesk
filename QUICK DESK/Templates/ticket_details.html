@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h2>Ticket #{{ ticket.id }}</h2>
+    <p><strong>Subject:</strong> {{ ticket.subject }}</p>
+    <p><strong>Category:</strong> {{ ticket.category }}</p>
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Description:</strong> {{ ticket.description }}</p>
+    {% if ticket.attachment %}
+        <p><strong>Attachment:</strong> <a href="{{ url_for('static', filename='Uploads/' ~ ticket.attachment) }}">Download</a></p>
+    {% endif %}
+
+    {% set upvotes = ticket.votes | selectattr('vote_type', 'equalto', 'upvote') | list | length %}
+    {% set downvotes = ticket.votes | selectattr('vote_type', 'equalto', 'downvote') | list | length %}
+    <p><strong>Votes:</strong> {{ upvotes - downvotes }}</p>
+
+    {% if current_user.role in ['admin', 'support'] %}
+        <form action="{{ url_for('main.ticket_details', ticket_id=ticket.id) }}" method="POST">
+            <label for="status">Status:</label>
+            <select name="status" id="status">
+                {% for s in ['Open', 'In Progress', 'Resolved', 'Closed'] %}
+                    <option value="{{ s }}" {% if ticket.status == s %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+            <label for="assigned_to">Assign to:</label>
+            <select name="assigned_to" id="assigned_to">
+                <option value="">Unassigned</option>
+                {% for user in support_users %}
+                    <option value="{{ user.id }}" {% if ticket.assigned_to == user.id %}selected{% endif %}>{{ user.username }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Update">
+        </form>
+    {% endif %}
+
+    <form action="{{ url_for('main.vote_ticket', ticket_id=ticket.id, vote_type='upvote') }}" method="POST" style="display: inline;">
+        <input type="submit" value="Upvote">
+    </form>
+    <form action="{{ url_for('main.vote_ticket', ticket_id=ticket.id, vote_type='downvote') }}" method="POST" style="display: inline;">
+        <input type="submit" value="Downvote">
+    </form>
+
+    <h3>Comments</h3>
+    {% for comment in comments if not comment.parent_id %}
+        <div style="margin-bottom: 1em;">
+            <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+            <p>{{ comment.content }}</p>
+
+            <form action="{{ url_for('main.ticket_details', ticket_id=ticket.id) }}" method="POST">
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                {{ form.hidden_tag() }}
+                <label for="content">Reply:</label>
+                {{ form.content }}
+                {{ form.submit }}
+            </form>
+
+            {% for reply in comment.replies %}
+                <div style="margin-left: 2em; margin-top: 1em;">
+                    <p><strong>{{ reply.user.username }}</strong> - {{ reply.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p>{{ reply.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <h3>Add Comment</h3>
+    <form action="{{ url_for('main.ticket_details', ticket_id=ticket.id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        <label for="content">Comment:</label>
+        {{ form.content }}
+        {{ form.submit }}
+    </form>
+</section>
+<footer>
+    <p>&copy; 2025 Quick Help Desk</p>
+</footer>
+{% endblock %}

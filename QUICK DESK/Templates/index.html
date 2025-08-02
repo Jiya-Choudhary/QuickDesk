@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="home-intro">
+    <h2>Welcome to QuickDesk</h2>
+    <p>Raise a support ticket or track your existing tickets easily and efficiently.</p>
+    
+    {% if current_user.is_authenticated %}
+        <a class="primary-button" href="{{ url_for('main.dashboard') }}">Go to Dashboard</a>
+    {% else %}
+        <a class="primary-button" href="{{ url_for('main.login') }}">Get Started</a>
+    {% endif %}
+</section>
+{% endblock %}

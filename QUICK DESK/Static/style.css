@@ -1,0 +1,188 @@
+/* === Base Styling === */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #f04343;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* === Navigation === */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5em 1em;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+/* === Main Content === */
+main {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === Sections and Forms === */
+section {
+    background-color: #f7f7f7;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input,
+form select,
+form textarea {
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form input[type="submit"],
+form button {
+    background-color: #f04343;
+    color: white;
+    border: none;
+    padding: 0.75em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover,
+form button:hover {
+    background-color: #d03636;
+}
+
+/* === Flash Messages === */
+.flash-message {
+    padding: 1em;
+    margin: 1em auto;
+    border-radius: 4px;
+    max-width: 600px;
+    text-align: center;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flash-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* === Tables === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+th,
+td {
+    padding: 0.75em;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+/* === Footer === */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+}
+
+/* === Buttons === */
+button {
+    background-color: #f04343;
+    color: white;
+    border: none;
+    padding: 0.75em 1.25em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #d03636;
+}
+
+/* === Responsive Layout === */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    section {
+        width: 95%;
+        padding: 1em;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    table {
+        font-size: 0.9em;
+        overflow-x: auto;
+        display: block;
+    }
+}

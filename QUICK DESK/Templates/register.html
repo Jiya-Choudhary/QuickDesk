@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h2>Register</h2>
+    <form method="POST" id="register-form">
+        {{ form.hidden_tag() }}
+
+        <label for="register-username">{{ form.username.label }}</label>
+        {{ form.username(id="register-username") }}
+
+        <label for="register-email">{{ form.email.label }}</label>
+        {{ form.email(id="register-email") }}
+
+        <label for="register-password">{{ form.password.label }}</label>
+        {{ form.password(id="register-password") }}
+
+        <label for="register-confirm-password">{{ form.confirm_password.label }}</label>
+        {{ form.confirm_password(id="register-confirm-password") }}
+
+        {{ form.submit(value="Register") }}
+    </form>
+</section>
+<footer>
+    <p>&copy; 2025 Quick Help Desk</p>
+</footer>
+{% endblock %}
