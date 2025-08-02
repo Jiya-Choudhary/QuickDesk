@@ -1,0 +1,2 @@
+# QuickDesk
+Odoo Hackathon Solution
